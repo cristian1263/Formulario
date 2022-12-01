@@ -89,4 +89,49 @@ const Formulario = () => {
         setEdicion(true);
     }
 
+    const EditarElemento = async e =>{
+        e.preventDefault();
+        try {
+            const docRef = doc(db,'Elemento',id);
+            await updateDoc(docRef,{
+                nombreElemento: elemento,
+                nombreApellido: apellido,
+                nombreDescripcion: descripcion,
+                numeroCedula: cedula,
+                numeroEdad: edad,
+                numeroCelular: numero,
+                nombrePais: pais, 
+                img: Image,
+
+            });
+            const Array = Lista.map(
+                item => item.id === id ? {
+                    id:id, 
+                    nombreElemento:elemento, 
+                    nombreDescripcion:descripcion, 
+                    nombreApellido:apellido, 
+                    numeroCedula: cedula,
+                    numeroEdad: edad,
+                    numeroCelular: numero,
+                    nombrePais: pais, 
+                    img:Image, 
+                }
+                :
+                item
+            );
+            setLista(Array);
+            setelemento('');
+            setapellido('');
+            setnumero('');
+            setedad('');
+            setcedula('');
+            setpais('');
+            setdescripcion('');
+            setId('');
+            setEdicion(false);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 }
