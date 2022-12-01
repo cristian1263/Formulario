@@ -3,13 +3,13 @@ import {db} from '../Firebase';
 import {collection , doc , addDoc, onSnapshot, deleteDoc, updateDoc } from "firebase/firestore";
 
 const Formulario = () => {
-    const[Elemento, setElemento] = useState('');
-    const[Apellido, setApellido] = useState('');
-    const[Numero, setNumero] = useState('');
-    const[Descripcion, setDescripcion] = useState('');
-    const[Pais, setPais] = useState('');
-    const[Cedula, setCedula] = useState('');
-    const[Edad, setEdad] = useState('');
+    const[elemento, setelemento] = useState('');
+    const[apellido, setapellido] = useState('');
+    const[numero, setnumero] = useState('');
+    const[descripcion, setdescripcion] = useState('');
+    const[pais, setpais] = useState('');
+    const[cedula, setcedula] = useState('');
+    const[edad, setedad] = useState('');
     const Image = ('https://picsum.photos/40');
     const[id, setId] = useState(0);
     const[Edicion, setEdicion] = useState(false);
@@ -29,4 +29,42 @@ const Formulario = () => {
        obtenerDatos();
        //console.log(Lista);
     },[]);
+
+    const guardarElement = async (e) =>  {
+        e.preventDefault();
+       //const Image='https://picsum.photos/40'; 
+        try {
+            const data = await addDoc(collection(db,'Elemento'),{
+                nombreElemento: elemento,
+                nombreApellido: apellido,
+                nombreDescripcion: descripcion,
+                numeroCedula: cedula,
+                numeroEdad: edad,
+                numeroCelular: numero,
+                nombrePais: pais,     
+            })
+            setLista(
+                [...Lista, {
+                    nombreElemento: elemento,
+                    nombreApellido: apellido,
+                    nombreDescripcion: descripcion,   
+                    numeroCedula: cedula,
+                    numeroEdad: edad,
+                    numeroCelular: numero,
+                    nombrePais: pais,
+                    id: data.id,
+                    img: Image,
+                }]
+            );
+            setelemento('');
+            setdescripcion('');
+            setapellido('');
+            setpais('');
+            setcedula('');
+            setnumero('');
+            setedad('');
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
