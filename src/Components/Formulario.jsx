@@ -133,5 +133,15 @@ const Formulario = () => {
             console.log(error);
         }
     }
-
+    const Cancelar = () =>{
+        setEdicion(false);
+        setelemento('');
+        setdescripcion('');
+        setapellido('');
+        setpais('');
+        setcedula('');
+        setnumero('');
+        setedad('');
+        setId('');
+    }
 }
