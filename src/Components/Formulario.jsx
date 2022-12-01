@@ -15,7 +15,7 @@ const Formulario = () => {
     const[Edicion, setEdicion] = useState(false);
     const[Lista, setLista] = useState([]);
 
-// Se usa useEddect y se crea un metodo para obtener los datos de firebase
+
     useEffect(()=>{
        const obtenerDatos = async () =>{
         try {
@@ -27,12 +27,12 @@ const Formulario = () => {
         }
        }
        obtenerDatos();
-       //console.log(Lista);
+      
     },[]);
 
     const guardarElement = async (e) =>  {
         e.preventDefault();
-       //const Image='https://picsum.photos/40'; 
+       
         try {
             const data = await addDoc(collection(db,'Elemento'),{
                 nombreElemento: elemento,
@@ -67,4 +67,26 @@ const Formulario = () => {
             console.log(error);
         }
     }
+
+    const Eliminar = async id =>{
+        try {
+            await deleteDoc(doc(db,'Elemento',id));
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+    const Editar = item =>{
+        setelemento(item.nombreElemento);
+        setdescripcion(item.nombreDescripcion);
+        setapellido(item.nombreApellido);
+        setpais(item.nombrePais);
+        setcedula(item.numeroCedula);
+        setnumero(item.numeroCelular);
+        setedad(item.numeroEdad);
+        setId(item.id);
+        setEdicion(true);
+    }
+
 }
