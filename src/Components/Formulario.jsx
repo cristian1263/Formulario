@@ -144,4 +144,63 @@ const Formulario = () => {
         setedad('');
         setId('');
     }
+
+    return (
+        <div className=" container mt-5">
+            <h1 className="text-center">Crud Desarrollo</h1>
+            <hr />
+            <div className="row">
+                <div className="col-8">
+                    <h4 className="text-center">Listado Elementos</h4>
+                    <ul className="list-group">
+                        {
+                            Lista.map(item => (
+                                <li className="list-group-item" key={item.id}>
+                                    <span className="lead font-size:2px"><img src={item.img} alt=''/> {item.nombreElemento} - {item.nombreApellido} 
+                                    - {item.numeroCelular} - {item.numeroCedula} - {item.numeroEdad} - {item.nombrePais} -  {item.nombreDescripcion} </span>
+                                    <button className="btn btn-danger btn-sm float-end mx-2" onClick={()=>Eliminar(item.id)}>Eliminar</button>
+                                    <button className="btn btn-warning btn-sm float-end" onClick={()=> Editar(item)}>Editar</button>
+                                </li>
+
+                            ))
+                        }
+                    </ul>
+                </div>
+            <div className=" container col-4">
+                <h4 className="text-center"> { Edicion ? 'Edicion Elemento':'Agregar Elemento'}</h4>
+                <form onSubmit={ Edicion ? EditarElemento :  guardarElement}>
+                    
+                    <input type="text" className="form-control mb-2" placeholder="Registre el Nombre"  pattern="[a-zA-Z]+++" required value={elemento} onChange={(e)=>setelemento(e.target.value)}/>
+                    <input type="text" className="form-control mb-2" placeholder="Registre el Apellido "  pattern="[a-zA-Z]+++" required value={apellido} onChange={(e)=>setapellido(e.target.value)}/>
+                    <input type="number" className="form-control mb-2" placeholder="Digite su Numero de Celular" ondrop="return false;" onpaste="return false;"
+                        onkeypress="return event.charCode>=48 && event.charCode<=57" required value={numero} onChange={(e)=>setnumero(e.target.value)}/>
+                    <input type="number" className="form-control mb-2" placeholder="Digite su Numero  de Cedula" ondrop="return false;" onpaste="return false;"
+                        onkeypress="return event.charCode>=48 && event.charCode<=57" required value={cedula} onChange={(e)=>setcedula(e.target.value)}/>
+                    <input type="number" className="form-control mb-2" placeholder="Registre la Edad" ondrop="return false;" onpaste="return false;"
+                        onkeypress="return event.charCode>=48 && event.charCode<=57" required value={edad} onChange={(e)=>setedad(e.target.value)}/>
+                    <input type="text" className="form-control mb-2" placeholder="Registre Pais Origen"  pattern="[a-zA-Z]+++" required value={pais} onChange={(e)=>setpais(e.target.value)}/>
+                    <input type="text" className="form-control mb-2" placeholder="Ingrese una Descripcion de la Persona" required value={descripcion} onChange={(e)=>setdescripcion(e.target.value)}/>
+                    {
+                        Edicion ?
+                        (
+                            <>
+                           
+                                <button className="btn btn-warning btn-block" on="submit">Editar</button>
+                                <button className="btn btn-dark btn-block mx-2" onClick={()=>Cancelar()}>Cancelar</button>
+                            
+                            </>
+                        )
+                        :
+                        
+                            <button className="btn btn-primary btn-block" on="submit">Agregar</button>
+                        
+                        
+                    }
+                </form>
+                </div>
+            </div>
+        </div>
+    )
 }
+
+export default Formulario;
